@@ -1,0 +1,245 @@
+Creating documents in R
+========================================================
+author: Kevin Shook
+date: 
+autosize: true
+
+
+Why create documents in R?
+========================================================
+- Makes research reproducible
+  - combines code with output
+  - allows detailed explanation of the code
+- Makes your research document more reproducible
+  - will always contain up-to-date values
+- Allows you to distribute you results to others
+
+
+R documents
+========================================================
+- Can include
+  - text
+  - Live R code
+  - code output
+  - figures
+  - images
+  - equations
+
+
+R documents types
+========================================================
+- Reports
+- Books
+- Research notebooks
+- Slides
+- Documentation
+- Web apps
+
+
+Output formats
+========================================================
+- html
+- pdf
+- Word
+- slides
+
+Creating R documents
+========================================================
+- Write plain text using **Markdown**
+  - text markup language
+  - simpler than LaTex (can also use LaTex)
+- Install package **rmarkdown**
+- Needs to have several packages installed
+  - slow, but only needs to be done once
+- Also need LaTex installed if you use equations
+- Install Pandoc to convert output formats
+http://pandoc.org
+
+Text
+========================================================
+- All text is in paragraphs, even if you manually break the line
+- To force a line break, put 2 spaces at the end of a line
+
+This is an example  
+of how to break text
+
+Emphasis
+========================================================
+- put asterisks or underscores before and after text to emphasize it
+ - * italics * -> *italics*
+ - ** bold ** -> **bold** 
+
+
+Titles
+========================================================
+- Titles indicated using leading ```#``` symbols
+
+`# Header 1
+# Header 1
+`## Header 2
+## Header 2
+`### Header 3 
+### Header 3 
+
+Bullets
+========================================================
+- Each bullet is prefixed by a hyphen
+  - indent using tab or 2 spaces
+
+Inline R code
+=======================================================
+- Put code between back ticks following "r": `` ` ``r `` ` ```
+
+Example:
+
+There were `` ` `` r nrow(cars)`` ` `` cars studied
+ 
+Will produce:
+
+There were `r nrow(cars)` cars studied
+
+R code chunks
+=======================================================
+- R code can be placed in chunks of multiple lines
+- Each chunk can be executed separately
+- Insert a new chunk by pressing **[Ctrl][Alt][i]**
+
+
+Running a chunk
+=======================================================
+- Click on the green triangle to run
+- Click on the gear to set options
+<div align="left">
+<img src="run_chunk.png" width=1000>
+</div>
+
+```{r echo=FALSE}
+  a <- seq(1:10)
+  cat(a)
+```
+
+LaTex
+======================================================
+- Equations can be added by enclosing them with $ 
+- Use ``$$`` to centre equation on the line
+
+`` $$\frac{\alpha}{\beta} = \gamma$$ ``
+
+$$\frac{\alpha}{\beta} = \gamma$$
+
+
+Tables
+=====================================================
+- Create a table using pipes (|) and hyphens  
+``header1|header2``  
+``-------|-------``  
+``row1|row1``  
+``row2|row2``  
+
+header1|header2
+-------|-------
+row1|row1
+row2|row2
+
+Formatting R output
+=====================================================
+- Many R commands produce tables of output
+  - work well for monospaced text
+  - not optimised for proportionally-spaced text
+```{r}
+head(mtcars)
+```
+
+Using other packages
+====================================================
+- Package **printr** automatically tidies tables
+```{r}
+library(printr)
+head(mtcars)
+```
+
+Notebooks
+====================================================
+- Creates a notebook of R code, using chunks
+- use **File|New File|Notebook**
+- Creates a skeleton document 
+- Default output is html, can be changed
+
+Example notebook
+====================================================
+- Small piece of R work
+- Combines text, an image, R code, output (including figures)
+- Output table is formatted
+
+Notebook parameters
+====================================================
+- Parameters can be passed to notebooks
+- Useful for creating custom reports
+
+Slides
+====================================================
+- You can create 2 types of presentations:
+1. **.Rpres** presentations
+2. **.Rmd** presentations
+
+.Rpres presentations
+====================================================
+- This presentation is an example
+- Stored in file with extension .Rpres
+- Require RStudio to view
+- To create a presentation, use **File|New File**
+- Each slide has a title line with at least 3 equals signs underneath:
+Slide title  
+`====================================================
+
+.Rmd presentations
+====================================================
+- Can produce more sophisicated slides
+- Requires LaTex
+- Three different types of presentation:
+  - beamer, slidy or ioslides
+  - Can output to pdf (beamer), or html (slidy/ioslides)
+- Use commmand **File|New File|R presentation**
+- Separate slides with ## on first line
+
+Documentation
+====================================================
+- Each R function in a package needs to be documented
+- R package documentation can include **vignettes**
+  - long form documentation, written in Markdown
+- A great way to contribute to an R package
+  - a great way to learn about R packages
+- Command is **File|New File|R Markdown...**
+  - select **From Template**, then **Package Vignette (HTML)**
+  
+Writing a thesis
+=====================================================
+- It is possible to write a thesis in R!
+- A template was created by Reed College:
+https://github.com/ismayc/reedtemplates
+- Install as a package
+
+Books
+=====================================================
+- The manual for ggplot2 is written in Markdown.
+- You can download it and build the document
+https://github.com/hadley/ggplot2-book
+- Uses lots of add-in packages, and there can be issues with their versions
+- I have already built the book, you can download the file **ggplot-book.pdf** from the github repository for this seminar
+
+Bookdown
+=====================================================
+- Can create books (printed or ebooks) in R
+- Get package **bookdown**
+- Books can be in  PDF, LaTeX, HTML, EPUB, or Word
+- Ebooks can also be published to web: https://bookdown.org
+
+Shiny
+======================================================
+- For building websites powered by R
+- Install package **shiny** normally
+  - See website https://shiny.rstudio.com/ for more info
+- Code can run on your own computer, or on a cloud server (free for up to 5 apps, $ for more) or a local server
+- Shiny app has 2 parts:
+  - ui - creates the user interface
+  - server - runs on the server
