@@ -41,7 +41,6 @@ Output formats
 - html
 - pdf
 - Word
-- slides
 
 Creating R documents
 ========================================================
@@ -50,8 +49,10 @@ Creating R documents
   - simpler than LaTex (can also use LaTex)
 - Install package **rmarkdown**
 - Needs to have several packages installed
-  - slow, but only needs to be done once
-- Also need LaTex installed if you use equations
+  - slow, but only needs to be done once  
+  
+***
+- Need LaTex installed if you use equations
 - Install Pandoc to convert output formats
 http://pandoc.org
 
@@ -78,6 +79,7 @@ Titles
 # Header 1
 `## Header 2
 ## Header 2
+***
 `### Header 3 
 ### Header 3 
 
@@ -187,20 +189,21 @@ Slides
 - This presentation is an example
 - Stored in file with extension .Rpres
 - Require RStudio to view
-- To create a presentation, use **File|New File**
-- Each slide has a title line with at least 3 equals signs underneath:
+- To create a presentation, use **File|New File|R Presentation**
+- Each slide has a title line with at least 3 equals signs underneath:  
+
 Slide title  
 `====================================================
 
 .Rmd presentations
 ====================================================
-- Can produce more sophisicated slides
+- Can produce more sophisticated slides
 - Requires LaTex
-- Three different types of presentation:
-  - beamer, slidy or ioslides
-  - Can output to pdf (beamer), or html (slidy/ioslides)
-- Use commmand **File|New File|R presentation**
-- Separate slides with ## on first line
+- To create a presentation, use **File|New File|R Markdown**
+
+***
+![](presentation.png)
+
 
 Documentation
 ====================================================
@@ -212,13 +215,6 @@ Documentation
 - Command is **File|New File|R Markdown...**
   - select **From Template**, then **Package Vignette (HTML)**
   
-Writing a thesis
-=====================================================
-- It is possible to write a thesis in R!
-- A template was created by Reed College:
-https://github.com/ismayc/reedtemplates
-- Install as a package
-
 Books
 =====================================================
 - The manual for ggplot2 is written in Markdown.
@@ -229,10 +225,18 @@ https://github.com/hadley/ggplot2-book
 
 Bookdown
 =====================================================
-- Can create books (printed or ebooks) in R
+- Can create books (printed or eBooks) in R
 - Get package **bookdown**
 - Books can be in  PDF, LaTeX, HTML, EPUB, or Word
-- Ebooks can also be published to web: https://bookdown.org
+- E books can also be published to web: https://bookdown.org
+
+Thesis
+=====================================================
+- It is possible to write a thesis in R!
+- A package **thesisdown** was created by Reed College
+- Required **bookdown**
+https://github.com/ismayc/thesisdown
+
 
 Shiny
 ======================================================
@@ -243,3 +247,9 @@ Shiny
 - Shiny app has 2 parts:
   - ui - creates the user interface
   - server - runs on the server
+
+Summary
+======================================================
+- You *can* create a wide variety of documents in **R**
+- Whether or not you *should* depends on your use
+  - also depends on what the final purpose of your document will be, and who will be using it
