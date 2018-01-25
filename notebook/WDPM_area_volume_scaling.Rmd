@@ -1,0 +1,98 @@
+---
+title: "WDPM area volume scaling Notebook"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+  html_notebook: default
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(printr)
+library(ggplot2)
+library(reshape2)
+library(pander)
+panderOptions('knitr.auto.asis', FALSE)
+```
+Analysis of pond area-volume scaling from WDPM output for sub-basins at Camrose Creek.
+The sub-basins do not correspond to any other sub-basin delineation. They 
+are simply regions which were determined by WDPm to drain to a common point. 
+The pond volumes and areas were extracted from the WDPM files using the R function 
+```WDPM_volume_area_scaling()```
+
+Plot pond volumes vs areas
+```{r linear plot}
+  graphFile <- "WDPM_areas_vols.png"
+  outfile <- "./"
+  infile <- "./WDPM_water_patches.csv"
+  all <- read.csv(infile, stringsAsFactors = FALSE, header = TRUE)
+  
+  p <- ggplot(all, aes(area, volume)) +
+    geom_point() + xlab("Water area (m²)") +
+    ylab("Water volume (m³)") +
+    facet_wrap(~basin, ncol = 2, scales = "free") +
+    geom_smooth(method = "lm", se = FALSE, colour = "red") 
+  print(p)
+  
+
+  
+```
+Fit linear regressions to points
+```{r linear_model, echo = TRUE}
+
+  all_basins <- unique(all$basin)
+  num_basins <- length(all_basins)
+  fit <- c(0)
+  for (i in 1:num_basins) {
+    basin <- all[all$basin == all_basins[i],]
+    # do lm
+    fit <- lm(volume~area, basin)
+    cat("basin:", all_basins[i],"\n")
+    pander(summary(fit))
+  }
+
+```
+Plot with second order polynomial
+```{r poly_plot}
+  p <- ggplot(all, aes(area, volume)) +
+    geom_point() + xlab("Water area (m²)") +
+    ylab("Water volume (m³)") +
+    facet_wrap(~basin, ncol = 2, scales = "free") +
+    geom_smooth(method = "lm", formula = y~x+I(x^2), se = FALSE, colour = "blue") 
+  print(p)
+  
+```
+
+
+
+Fit second order polynomial
+```{r poly_model, echo = TRUE}
+
+  all_basins <- unique(all$basin)
+  num_basins <- length(all_basins)
+  fit <- c(0)
+  for (i in 1:num_basins) {
+    basin <- all[all$basin == all_basins[i],]
+    fit <- lm(volume~area+I(area^2), basin)
+    cat("basin:", all_basins[i],"\n")
+    pander(summary(fit))
+  }
+
+```
+
+Value of $r^2$ is not greatly improved by using second-order polynomial, and there is still a large negative intercept. Therefore, refit without intercept.
+
+```{r no_intercept, echo = TRUE}
+
+  all_basins <- unique(all$basin)
+  num_basins <- length(all_basins)
+  fit <- c(0)
+  for (i in 1:num_basins) {
+    basin <- all[all$basin == all_basins[i],]
+    # do lm
+    fit <- lm(volume~area-1, basin)
+    cat("basin:", all_basins[i],"\n")
+    pander(summary(fit))
+  }
+
+```
